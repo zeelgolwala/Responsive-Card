@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'inter', sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 60px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #526478;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width:600px) {
+            .container {
+                margin: 20px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Build Ypur CV card</h1>
+        <form id="cvform">
+            <input type="text" id="name" placeholder="Enter Your Full name" required>
+            <input type="email" id="email" placeholder="Enter Your Email" required>
+            <input type="text" id="address" placeholder="Enter Your Address" required>
+            <input type="text" id="details" placeholder="Enter Your Details" required>
+            <input type="file" id="pic" accept="image/*" required>
+            <button type="submit">Create CV</button>
+        </form>
+    </div>
+
+     <script>
+        document.getElementById('cvform').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const file = document.getElementById('pic').files[0];
+            if (!file) {
+                alert("please upload a picture");
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const base64image = event.target.result;
+                const data = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    address: document.getElementById('address').value,
+                    details: document.getElementById('details').value,
+                    pic: base64image,
+                };
+                localStorage.setItem('cvData',JSON.stringify(data));
+                window.location.href='cv.html'
+            };
+            reader.readAsDataURL(file);
+        })
+
+    </script>
+
+
+</body>
+
+</html>

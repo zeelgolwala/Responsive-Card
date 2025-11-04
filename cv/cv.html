@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV page</title>
+    <style>
+        body {
+            font-family: 'inter', sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .cv-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #007bff;
+        }
+
+        .info h2 {
+            margin: 0;
+            font-size: 26px;
+            color: #333;
+        }
+
+        .info p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section h3 {
+            color: #330bff;
+            margin-bottom: 10px;
+
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .btn-group button {
+            padding: 12px 24px;
+            font-size: 16px;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .print-btn {
+            background-color: #28a745;
+        }
+
+        .reset-btn {
+            background-color: rgb(184, 39, 39);
+        }
+
+        @media (max-width:600px) {
+            .header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .header img {
+                width: 100px;
+                height: 100px;
+            }
+
+            .btn-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+        }
+
+        @media print {
+            .btn-group {
+                display: none;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cv-container" id="cv">
+        <div class="header">
+            <img src="" alt="profile" id="profilepic">
+            <div class="info">
+                <h2 id="cvName">Name</h2>
+                <p id="cvEmail">Email</p>
+                <p id="cvAddress">Address</p>
+
+            </div>
+
+        </div>
+        <div class="section">
+            <h3>Professional Summary</h3>
+            <p id="cvDetails">Details Will Appear Here</p>
+
+        </div>
+
+    </div>
+    <div class="btn-group">
+        <button class="print-btn" onclick="window.print()">Download/Printcv</button>
+        <button class="reset-btn" onclick=" resetcv()">Reset</button>
+
+    </div>
+
+     <script>
+        const cvData = JSON.parse(localStorage.getItem('cvData'));
+        if (cvData) {
+            document.getElementById('profilepic').src = cvData.pic;
+            document.getElementById('cvName').innerText = cvData.name;
+            document.getElementById('cvEmail').innerText = cvData.email;
+            document.getElementById('cvAddress').innerText = cvData.address;
+            document.getElementById('cvDetails').innerText = cvData.details;
+        } else {
+            document.getElementById('cv').innerHTML = '<p>No Cv found.</p>'
+        }
+        function resetcv() {
+            localStorage.removeItem('cvData');
+            window.location.href = 'index.html'
+        }
+    </script>
+
+
+
+</body>
+
+</html>
